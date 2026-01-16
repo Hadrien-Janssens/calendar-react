@@ -1,6 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
 import Calendar from '@/components/Calendar'
+import About from '@/components/About'
+import Services from '@/components/Services'
+import Header from '@/components/Header'
+import Contact from '@/components/Contact'
+import Footer from '@/components/Footer'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -9,7 +13,12 @@ export const Route = createFileRoute('/')({
 function App() {
   return (
     <div>
-      <Calendar />
+      <Header />
+      <About />
+      <Services />
+      {/* <Calendar /> */}
+      <Contact />
+      <Footer />
     </div>
   )
 }
