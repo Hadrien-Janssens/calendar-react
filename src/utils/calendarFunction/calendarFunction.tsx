@@ -1,24 +1,54 @@
-// IMPORT LIB
 import dayjs from 'dayjs'
+import type { dayType } from '@/type/dayType'
+import type { GoogleEvent } from '@/type/googleEventType'
 
 export function getCalendarDays() {
   const startOfMonth = dayjs().startOf('month')
   const endOfMonth = dayjs().endOf('month')
 
-  const startWeekday = (startOfMonth.day() + 6) % 7
-  const days: Array<dayjs.Dayjs | null> = []
+  const startWeekday = (startOfMonth.day() + 6) % 7 // lundi = 0
+  const days: Array<dayType> = []
 
-  // Jours vides avant le 1er
-  for (let i = 0; i < startWeekday; i++) {
-    days.push(null)
+  // Jours du mois précédent pour compléter la semaine
+  if (startWeekday > 0) {
+    const prevMonthEnd = startOfMonth.subtract(1, 'month').endOf('month')
+    for (let i = startWeekday - 1; i >= 0; i--) {
+      days.push({ day: prevMonthEnd.subtract(i, 'day'), month: 'before' })
+    }
   }
 
-  // Jours du mois
+  // Jours du mois courant
   let current = startOfMonth
   while (current.isBefore(endOfMonth) || current.isSame(endOfMonth, 'day')) {
-    days.push(current)
+    days.push({ day: current, month: 'current' })
     current = current.add(1, 'day')
   }
 
+  // compléter avec les jours du mois suivant pour compléter la dernière semaine
+  const totalDays = days.length
+  const remaining = 7 - (totalDays % 7)
+  if (remaining < 7) {
+    let nextMonthDay = endOfMonth.add(1, 'day')
+    for (let i = 0; i < remaining; i++) {
+      days.push({ day: nextMonthDay, month: 'after' })
+      nextMonthDay = nextMonthDay.add(1, 'day')
+    }
+  }
+
   return days
+}
+
+export const hasEvent = (day: dayType, events: Array<GoogleEvent>) => {
+  return events.some((event) => {
+    const eventDate = event.start.dateTime || event.start.date
+    return dayjs(eventDate).isSame(day.day, 'day')
+  })
+}
+export const isCurrentDay = (day: dayType) => {
+  const currentDay = Date.now()
+
+  if (day.day.isSame(currentDay, 'day')) {
+    return true
+  }
+  return false
 }

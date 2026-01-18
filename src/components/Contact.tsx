@@ -1,8 +1,11 @@
 import { useState } from 'react'
-import Calendar from './Calendar'
+import CalendarModal from './CalendarModal'
 
 export default function Contact() {
   const [showCalendar, setShowCalendar] = useState(false)
+  const closeCalendarModal = () => {
+    setShowCalendar(false)
+  }
 
   return (
     <div className="">
@@ -15,7 +18,9 @@ export default function Contact() {
           prendre rendez-vous
         </button>
       </div>
-      {showCalendar && <Calendar />}
+      {showCalendar && (
+        <CalendarModal closeCalendarModal={closeCalendarModal} />
+      )}
     </div>
   )
 }

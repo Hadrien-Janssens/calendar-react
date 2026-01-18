@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import Calendar from '@/components/Calendar'
+import Calendar from '@/components/calendar/Calendar'
 import About from '@/components/About'
 import Services from '@/components/Services'
 import Header from '@/components/Header'
