@@ -38,13 +38,25 @@ export function getCalendarDays() {
   return days
 }
 
-export const hasEvent = (day: dayType, events: Array<GoogleEvent>) => {
+/**
+ *
+ * @param day it's just a day
+ * @param events List of events given by Google agenda
+ * @returns true if the day have at least one event
+ */
+export const hasEvent = (day: dayType, events: Array<GoogleEvent>): boolean => {
   return events.some((event) => {
     const eventDate = event.start.dateTime || event.start.date
     return dayjs(eventDate).isSame(day.day, 'day')
   })
 }
-export const isCurrentDay = (day: dayType) => {
+
+/**
+ *
+ * @param day it's just a day
+ * @returns true if it's today
+ */
+export const isCurrentDay = (day: dayType): boolean => {
   const currentDay = Date.now()
 
   if (day.day.isSame(currentDay, 'day')) {

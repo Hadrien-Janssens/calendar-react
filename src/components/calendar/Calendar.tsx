@@ -4,15 +4,10 @@ import { useCalendarEvents } from './useCalendarEvent'
 import CalendarHeader from './CalendarHeader'
 import CalendarTableHead from './CalendarTableHead'
 import CalendarDay from './CalendarDay'
-
 // OTHERS IMPORT
 import { getCalendarDays } from '@/utils/calendarFunction/calendarFunction'
 
-type calendarProps = {
-  closeCalendarModal: () => void
-}
-
-export default function Calendar({ closeCalendarModal }: calendarProps) {
+export default function Calendar() {
   const calendarDays = getCalendarDays()
   // console.log('icic', calendarDays)
 
@@ -20,10 +15,9 @@ export default function Calendar({ closeCalendarModal }: calendarProps) {
 
   if (isLoading) return <div>Chargement...</div>
   if (error) return <div>Erreur lors du chargement des événements</div>
-
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl p-5 h-[90vh] overflow-scroll">
-      <CalendarHeader closeCalendarModal={closeCalendarModal} />
+      <CalendarHeader />
       <table className="border-collapse w-full">
         <CalendarTableHead />
         <tbody>

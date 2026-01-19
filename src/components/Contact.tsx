@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import CalendarModal from './CalendarModal'
+import { calendarModalContext } from './calendar/calendarModalContext'
 
 export default function Contact() {
   const [showCalendar, setShowCalendar] = useState(false)
-  const closeCalendarModal = () => {
-    setShowCalendar(false)
-  }
 
   return (
     <div className="">
@@ -18,9 +16,9 @@ export default function Contact() {
           prendre rendez-vous
         </button>
       </div>
-      {showCalendar && (
-        <CalendarModal closeCalendarModal={closeCalendarModal} />
-      )}
+      <calendarModalContext.Provider value={{ showCalendar, setShowCalendar }}>
+        {showCalendar && <CalendarModal />}
+      </calendarModalContext.Provider>
     </div>
   )
 }

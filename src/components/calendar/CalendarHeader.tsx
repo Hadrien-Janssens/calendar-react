@@ -1,13 +1,15 @@
 import dayjs from 'dayjs'
 import { X } from 'lucide-react'
 import CalendarHeaderButton from './CalendarHeaderButton'
+import { useCalendarContext } from './useCalendarContext'
 
-type CalendarHeaderType = {
-  closeCalendarModal: () => void
-}
-export default function CalendarHeader({
-  closeCalendarModal,
-}: CalendarHeaderType) {
+export default function CalendarHeader() {
+  const context = useCalendarContext()
+
+  const closeCalendarModal = () => {
+    context.setShowCalendar(false)
+  }
+
   return (
     <>
       <div className="flex justify-end text-neutral-700 mb-5">
