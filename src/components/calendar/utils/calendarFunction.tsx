@@ -2,9 +2,9 @@ import dayjs from 'dayjs'
 import type { dayType } from '@/type/dayType'
 import type { GoogleEvent } from '@/type/googleEventType'
 
-export function getCalendarDays() {
-  const startOfMonth = dayjs().startOf('month')
-  const endOfMonth = dayjs().endOf('month')
+export function getCalendarDays(month: dayjs.Dayjs) {
+  const startOfMonth = month.startOf('month')
+  const endOfMonth = month.endOf('month')
 
   const startWeekday = (startOfMonth.day() + 6) % 7 // lundi = 0
   const days: Array<dayType> = []
@@ -60,6 +60,18 @@ export const isCurrentDay = (day: dayType): boolean => {
   const currentDay = Date.now()
 
   if (day.day.isSame(currentDay, 'day')) {
+    return true
+  }
+  return false
+}
+
+/**
+ *
+ * @param day
+ * @returns
+ */
+export const isDayInMonth = (day: dayType): boolean => {
+  if (day.month === 'current') {
     return true
   }
   return false

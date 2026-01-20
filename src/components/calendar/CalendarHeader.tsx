@@ -1,13 +1,33 @@
-import dayjs from 'dayjs'
+// LIB
 import { X } from 'lucide-react'
+import dayjs from 'dayjs'
+
+// COMPONENT
 import CalendarHeaderButton from './CalendarHeaderButton'
 import { useCalendarContext } from './useCalendarContext'
+import type { Dispatch, SetStateAction } from 'react'
 
-export default function CalendarHeader() {
+type CalendarHeaderProps = {
+  prevMonth: () => void
+  nextMonth: () => void
+  currentDate: dayjs.Dayjs
+  setCurrentDate: Dispatch<SetStateAction<dayjs.Dayjs>>
+}
+
+export default function CalendarHeader({
+  prevMonth,
+  nextMonth,
+  currentDate,
+  setCurrentDate,
+}: CalendarHeaderProps) {
   const context = useCalendarContext()
 
   const closeCalendarModal = () => {
     context.setShowCalendar(false)
+  }
+
+  const followMonth = (index: number) => {
+    setCurrentDate(dayjs().month(index))
   }
 
   return (
@@ -18,11 +38,26 @@ export default function CalendarHeader() {
         </button>
       </div>
       <div className="flex justify-between items-center">
-        <CalendarHeaderButton>précédent</CalendarHeaderButton>
+        <CalendarHeaderButton onClick={prevMonth}>
+          précédent
+        </CalendarHeaderButton>
         <h2 className="text-lg font-semibold mb-2 text-center">
-          {dayjs().format('MMMM YYYY')}
+          <select
+            value={currentDate.month()}
+            onChange={(e) => followMonth(parseInt(e.target.value))}
+          >
+            {Array.from({ length: 12 }).map((_, index) => {
+              return (
+                <option key={index} value={index}>
+                  {currentDate.month(index).format('MMMM')}
+                </option>
+              )
+            })}
+          </select>
+
+          {currentDate.format('YYYY')}
         </h2>
-        <CalendarHeaderButton>suivant</CalendarHeaderButton>
+        <CalendarHeaderButton onClick={nextMonth}>suivant</CalendarHeaderButton>
       </div>
     </>
   )

@@ -1,3 +1,7 @@
+import dayjs from 'dayjs'
+import 'dayjs/locale/fr'
+import { useState } from 'react'
+
 // IMPORT COMPONENT
 import CalendarChoices from './CalendarChoices'
 import { useCalendarEvents } from './useCalendarEvent'
@@ -5,11 +9,20 @@ import CalendarHeader from './CalendarHeader'
 import CalendarTableHead from './CalendarTableHead'
 import CalendarDay from './CalendarDay'
 // OTHERS IMPORT
-import { getCalendarDays } from '@/utils/calendarFunction/calendarFunction'
+import { getCalendarDays } from '@/components/calendar/utils/calendarFunction'
 
 export default function Calendar() {
-  const calendarDays = getCalendarDays()
-  // console.log('icic', calendarDays)
+  dayjs.locale('fr')
+  const [currentDate, setCurrentDate] = useState(dayjs())
+
+  const nextMonth = () => {
+    setCurrentDate((v) => v.add(1, 'month'))
+  }
+  const prevMonth = () => {
+    setCurrentDate((v) => v.subtract(1, 'month'))
+  }
+
+  const calendarDays = getCalendarDays(currentDate)
 
   const { data = [], isLoading, error } = useCalendarEvents()
 
@@ -17,7 +30,12 @@ export default function Calendar() {
   if (error) return <div>Erreur lors du chargement des événements</div>
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl p-5 h-[90vh] overflow-scroll">
-      <CalendarHeader />
+      <CalendarHeader
+        prevMonth={prevMonth}
+        nextMonth={nextMonth}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+      />
       <table className="border-collapse w-full">
         <CalendarTableHead />
         <tbody>
@@ -38,6 +56,25 @@ export default function Calendar() {
           )}
         </tbody>
       </table>
+
+      {/* LEGEND  */}
+      <div className="flex gap-5 text-xs p-3 justify-center">
+        <p>Affluence :</p>
+        <div className="flex gap-4">
+          <div className="flex gap-0.5 items-center">
+            <div className="w-3 h-3 bg-emerald-400 rounded-full"></div>
+            <p>Faible</p>
+          </div>
+          <div className="flex gap-0.5 items-center">
+            <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+            <p>Moyenne</p>
+          </div>
+          <div className="flex gap-0.5 items-center">
+            <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+            <p>Forte</p>
+          </div>
+        </div>
+      </div>
       {/* CRENEAUX */}
       <CalendarChoices />
     </div>
