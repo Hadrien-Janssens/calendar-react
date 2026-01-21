@@ -13,7 +13,7 @@ export default function Contact() {
           className="border rounded-md py-1 px-3 bg-stone-300"
           onClick={() => setShowCalendar(!showCalendar)}
         >
-          prendre rendez-vous
+          Prendre rendez-vous
         </button>
       </div>
       <calendarModalContext.Provider value={{ showCalendar, setShowCalendar }}>

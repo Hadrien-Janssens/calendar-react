@@ -29,9 +29,9 @@ export default function CalendarDay({ day, data }: CalendarDayType) {
     <div
       className={` w-12 h-12 rounded-full text-center flex justify-center items-center cursor-pointer hover:scale-110  duration-200 
         ${isToday ? 'border-2 border-red-400' : ''}
-        ${hasEvents ? 'bg-amber-100' : ''}
-        ${canBooking() ? 'shadow-md' : 'text-neutral-400 '}
-        ${canBooking() && !hasEvents ? 'bg-emerald-300' : ''}
+        ${hasEvents ? 'bg-amber-100 shadow-md' : ''}
+        ${canBooking() ? '' : 'text-neutral-400 '}
+        ${canBooking() && !hasEvents ? 'bg-emerald-300 shadow-md' : ''}
         `}
     >
       {day.day.date()}

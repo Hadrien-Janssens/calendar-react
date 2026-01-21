@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchEvents } from './calendar.service'
+import { fetchEvents } from './services/calendar.service'
 import type { GoogleEvent } from '@/type/googleEventType'
 
 export function useCalendarEvents() {
