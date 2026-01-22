@@ -25,7 +25,6 @@ export default function Calendar() {
   const calendarDays = getCalendarDays(currentDate)
 
   const { data = [], isLoading, error } = useCalendarEvents()
-  console.log(data)
 
   if (isLoading) return <div>Chargement...</div>
   if (error) return <div>Erreur lors du chargement des événements</div>
