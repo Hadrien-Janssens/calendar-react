@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-import type { dayType } from '@/type/dayType'
+import type { DayType } from '@/type/DayType'
 import type { GoogleEvent } from '@/type/googleEventType'
 
 import {
@@ -10,7 +10,7 @@ import {
 } from '@/components/calendar/utils/calendarFunction'
 
 type CalendarDayType = {
-  day: dayType
+  day: DayType
   data: Array<GoogleEvent>
 }
 

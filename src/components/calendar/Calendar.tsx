@@ -26,6 +26,8 @@ export default function Calendar() {
 
   const { data = [], isLoading, error } = useCalendarEvents()
 
+  console.log(data)
+
   if (isLoading) return <div>Chargement...</div>
   if (error) return <div>Erreur lors du chargement des événements</div>
   return (
@@ -59,19 +61,18 @@ export default function Calendar() {
 
       {/* LEGEND  */}
       <div className="flex gap-5 text-xs p-3 justify-center">
-        <p>Disponibilités :</p>
         <div className="flex gap-4">
           <div className="flex gap-0.5 items-center">
             <div className="w-3 h-3 bg-emerald-400 rounded-full"></div>
-            <p>Bonne</p>
+            <p>Libre</p>
           </div>
           <div className="flex gap-0.5 items-center">
             <div className="w-3 h-3 bg-amber-200 rounded-full"></div>
-            <p>Moyenne</p>
+            <p>Moyen</p>
           </div>
           <div className="flex gap-0.5 items-center">
             <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-            <p>Faible</p>
+            <p>Chargé</p>
           </div>
           <div className="flex gap-0.5 items-center">
             <div className="w-3 h-3 bg-red-800 rounded-full"></div>

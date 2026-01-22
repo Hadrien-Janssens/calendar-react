@@ -20,23 +20,12 @@ export default function CalendarHeader({
   currentDate,
   setCurrentDate,
 }: CalendarHeaderProps) {
-  const context = useCalendarContext()
-
-  const closeCalendarModal = () => {
-    context.setShowCalendar(false)
-  }
-
   const followMonth = (index: number) => {
     setCurrentDate(dayjs().month(index))
   }
 
   return (
     <>
-      <div className="flex justify-end text-neutral-700 mb-5">
-        <button onClick={closeCalendarModal}>
-          <X />
-        </button>
-      </div>
       <div className="flex justify-between items-center">
         <CalendarHeaderButton onClick={prevMonth}>
           précédent

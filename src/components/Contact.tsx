@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import CalendarModal from './CalendarModal'
-import BookingModal from './BookingModal'
+import BookingsModal from './BookingModal'
 import { calendarModalContext } from './calendar/calendarModalContext'
 
 export default function Contact() {
@@ -22,7 +22,7 @@ export default function Contact() {
         {showCalendar && <CalendarModal />}
       </calendarModalContext.Provider>
       {showBookingModal && (
-        <BookingModal setshowBookingModal={setshowBookingModal} />
+        <BookingsModal setshowBookingModal={setshowBookingModal} />
       )}
     </div>
   )

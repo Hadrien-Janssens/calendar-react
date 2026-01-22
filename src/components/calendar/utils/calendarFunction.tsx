@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import type { dayType } from '@/type/dayType'
+import type { DayType } from '@/type/DayType'
 import type { GoogleEvent } from '@/type/googleEventType'
 
 export function getCalendarDays(month: dayjs.Dayjs) {
@@ -7,7 +7,7 @@ export function getCalendarDays(month: dayjs.Dayjs) {
   const endOfMonth = month.endOf('month')
 
   const startWeekday = (startOfMonth.day() + 6) % 7 // lundi = 0
-  const days: Array<dayType> = []
+  const days: Array<DayType> = []
 
   // Jours du mois précédent pour compléter la semaine
   if (startWeekday > 0) {
@@ -44,7 +44,7 @@ export function getCalendarDays(month: dayjs.Dayjs) {
  * @param events List of events given by Google agenda
  * @returns true if the day have at least one event
  */
-export const hasEvent = (day: dayType, events: Array<GoogleEvent>): boolean => {
+export const hasEvent = (day: DayType, events: Array<GoogleEvent>): boolean => {
   return events.some((event) => {
     const eventDate = event.start.dateTime || event.start.date
     return dayjs(eventDate).isSame(day.day, 'day')
@@ -56,7 +56,7 @@ export const hasEvent = (day: dayType, events: Array<GoogleEvent>): boolean => {
  * @param day it's just a day
  * @returns true if it's today
  */
-export const isCurrentDay = (day: dayType): boolean => {
+export const isCurrentDay = (day: DayType): boolean => {
   const currentDay = Date.now()
 
   if (day.day.isSame(currentDay, 'day')) {
@@ -70,7 +70,7 @@ export const isCurrentDay = (day: dayType): boolean => {
  * @param day
  * @returns
  */
-export const isDayInMonth = (day: dayType): boolean => {
+export const isDayInMonth = (day: DayType): boolean => {
   if (day.month === 'current') {
     return true
   }
