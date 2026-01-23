@@ -1,17 +1,14 @@
 import CalendarTimeChoice from './CalendarTimeChoice'
+import type { ServiceType } from '@/type/serviceType'
 
-export default function CalendarChoices() {
+export default function CalendarChoices({
+  selectedService,
+}: {
+  selectedService: ServiceType | null
+}) {
   // TODO: Fetch les horaires sur base de la configue du dashboard
-  const HORAIRE = [
-    { dayOfWeek: 0, startTime: '9:30', endTime: '12:30' },
-    { dayOfWeek: 0, startTime: '13:00', endTime: '18:00' },
-    { dayOfWeek: 1, startTime: '9:30', endTime: '18:00' },
-    { dayOfWeek: 2, startTime: '9:30', endTime: '12:00' },
-    { dayOfWeek: 3, startTime: '9:30', endTime: '18:00' },
-    { dayOfWeek: 4, startTime: '9:30', endTime: '18:00' },
-    { dayOfWeek: 5, startTime: '9:30', endTime: '18:00' },
-    { dayOfWeek: 6, startTime: '9:30', endTime: '18:00' },
-  ]
+
+  console.log(selectedService)
 
   // ensuite donner les crénaux disponibles suivant le service
   return (

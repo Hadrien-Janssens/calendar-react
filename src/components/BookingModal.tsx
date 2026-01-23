@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Calendar from './calendar/Calendar'
 import ServiceList from './services/ServiceList'
 import type { Dispatch, SetStateAction } from 'react'
+import type { ServiceType } from '@/type/serviceType'
 
 type BookingModalType = {
   setshowBookingModal: Dispatch<SetStateAction<boolean>>
@@ -13,7 +14,14 @@ export default function BookingModal({
   setshowBookingModal,
 }: BookingModalType) {
   const [step, setStep] = useState(0)
-  const nextStep = () => setStep((v) => v + 1)
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(
+    null,
+  )
+  const nextStep = (service: ServiceType) => {
+    setSelectedService(service)
+    setStep((v) => v + 1)
+  }
+
   return createPortal(
     <div
       onClick={() => {
@@ -25,13 +33,17 @@ export default function BookingModal({
         onClick={(e) => e.stopPropagation()}
         className="max-w-md mx-auto bg-white rounded-xl p-3 h-[90vh] overflow-scroll space-y-5"
       >
-        <X
-          onClick={() => {
-            setshowBookingModal(false)
-          }}
-        />
+        {/* HEADER MODAL */}
+        <div>
+          <X
+            onClick={() => {
+              setshowBookingModal(false)
+            }}
+          />
+        </div>
+        {/* BODY MODAL */}
         {step === 0 && <ServiceList onSelectedService={nextStep} />}
-        {step === 1 && <Calendar />}
+        {step === 1 && <Calendar selectedService={selectedService} />}
       </div>
     </div>,
     document.body,

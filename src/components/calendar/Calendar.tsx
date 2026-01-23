@@ -10,9 +10,14 @@ import CalendarTableHead from './CalendarTableHead'
 import CalendarDay from './CalendarDay'
 import Legend from './Legend'
 // OTHERS IMPORT
+import type { ServiceType } from '@/type/serviceType'
 import { getCalendarDays } from '@/components/calendar/utils/calendarFunction'
 
-export default function Calendar() {
+export default function Calendar({
+  selectedService,
+}: {
+  selectedService: ServiceType | null
+}) {
   dayjs.locale('fr')
   const [currentDate, setCurrentDate] = useState(dayjs())
 
@@ -27,7 +32,7 @@ export default function Calendar() {
 
   const { data = [], isLoading, error } = useCalendarEvents()
 
-  console.log(data)
+  // console.log(data)
 
   // TODO: il faut créer un composant pour le chargement et l'error
   if (isLoading) return <div>Chargement...</div>
@@ -64,7 +69,7 @@ export default function Calendar() {
       {/* LEGEND  */}
       <Legend />
       {/* CRENEAUX */}
-      <CalendarChoices />
+      <CalendarChoices selectedService={selectedService} />
     </div>
   )
 }

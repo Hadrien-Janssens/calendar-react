@@ -3,7 +3,7 @@ import ServiceCard from './ServiceCard'
 import type { ServiceType } from '@/type/serviceType'
 
 type ServiceListProps = {
-  onSelectedService: () => void
+  onSelectedService: (service: ServiceType) => void
 }
 
 export default function ServiceList({ onSelectedService }: ServiceListProps) {
@@ -21,7 +21,8 @@ export default function ServiceList({ onSelectedService }: ServiceListProps) {
       return await res.json()
     },
   })
-  console.log(data)
+  // console.log(data)
+
   // TODO: il faut créer un composant pour le chargement et l'error
   if (isLoading) return <div>Chargement...</div>
   if (error) return <div>Erreur lors du chargement des événements</div>
