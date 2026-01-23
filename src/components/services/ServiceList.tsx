@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
+import LoadingDataQuery from '../LoadingDataQuery'
+import ErreurDataQuery from '../ErreurDataQuery'
 import ServiceCard from './ServiceCard'
 import type { ServiceType } from '@/type/serviceType'
 
@@ -24,8 +26,8 @@ export default function ServiceList({ onSelectedService }: ServiceListProps) {
   // console.log(data)
 
   // TODO: il faut créer un composant pour le chargement et l'error
-  if (isLoading) return <div>Chargement...</div>
-  if (error) return <div>Erreur lors du chargement des événements</div>
+  if (isLoading) return <LoadingDataQuery />
+  if (error) return <ErreurDataQuery />
   return (
     <>
       {/* HEADER */}
