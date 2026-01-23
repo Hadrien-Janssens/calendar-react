@@ -1,11 +1,17 @@
 import type { ServiceType } from '@/type/serviceType'
 import { centsToEuros } from '@/utils/price'
 
-type ServiceCardProps = { service: ServiceType }
+type ServiceCardProps = { service: ServiceType; onSelectedService: () => void }
 
-export default function ServiceCard({ service, onClick }: ServiceCardProps) {
+export default function ServiceCard({
+  service,
+  onSelectedService,
+}: ServiceCardProps) {
   return (
-    <div onClick={onClick} className="border rounded-2xl p-5 shadow-md">
+    <div
+      onClick={onSelectedService}
+      className="border rounded-2xl p-5 shadow-md"
+    >
       <p>{service.name}</p>
       <p>{service.description}</p>
       <p>{service.durationMinutes} min.</p>

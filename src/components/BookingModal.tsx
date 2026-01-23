@@ -13,6 +13,7 @@ export default function BookingModal({
   setshowBookingModal,
 }: BookingModalType) {
   const [step, setStep] = useState(0)
+  const nextStep = () => setStep((v) => v + 1)
   return createPortal(
     <div
       onClick={() => {
@@ -29,7 +30,7 @@ export default function BookingModal({
             setshowBookingModal(false)
           }}
         />
-        {step === 0 && <ServiceList onClick={() => setStep((v) => v + 1)} />}
+        {step === 0 && <ServiceList onSelectedService={nextStep} />}
         {step === 1 && <Calendar />}
       </div>
     </div>,

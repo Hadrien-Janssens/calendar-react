@@ -1,10 +1,7 @@
 import { useState } from 'react'
-import CalendarModal from './CalendarModal'
 import BookingsModal from './BookingModal'
-import { calendarModalContext } from './calendar/calendarModalContext'
 
 export default function Contact() {
-  const [showCalendar, setShowCalendar] = useState(false)
   const [showBookingModal, setshowBookingModal] = useState(false)
 
   return (
@@ -18,9 +15,6 @@ export default function Contact() {
           Prendre rendez-vous
         </button>
       </div>
-      <calendarModalContext.Provider value={{ showCalendar, setShowCalendar }}>
-        {showCalendar && <CalendarModal />}
-      </calendarModalContext.Provider>
       {showBookingModal && (
         <BookingsModal setshowBookingModal={setshowBookingModal} />
       )}

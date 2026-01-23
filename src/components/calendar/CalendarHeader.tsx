@@ -1,10 +1,8 @@
 // LIB
-import { X } from 'lucide-react'
 import dayjs from 'dayjs'
 
 // COMPONENT
 import CalendarHeaderButton from './CalendarHeaderButton'
-import { useCalendarContext } from './useCalendarContext'
 import type { Dispatch, SetStateAction } from 'react'
 
 type CalendarHeaderProps = {

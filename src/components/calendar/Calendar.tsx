@@ -8,6 +8,7 @@ import { useCalendarEvents } from './useCalendarEvent'
 import CalendarHeader from './CalendarHeader'
 import CalendarTableHead from './CalendarTableHead'
 import CalendarDay from './CalendarDay'
+import Legend from './Legend'
 // OTHERS IMPORT
 import { getCalendarDays } from '@/components/calendar/utils/calendarFunction'
 
@@ -28,6 +29,7 @@ export default function Calendar() {
 
   console.log(data)
 
+  // TODO: il faut créer un composant pour le chargement et l'error
   if (isLoading) return <div>Chargement...</div>
   if (error) return <div>Erreur lors du chargement des événements</div>
   return (
@@ -60,26 +62,7 @@ export default function Calendar() {
       </table>
 
       {/* LEGEND  */}
-      <div className="flex gap-5 text-xs p-3 justify-center">
-        <div className="flex gap-4">
-          <div className="flex gap-0.5 items-center">
-            <div className="w-3 h-3 bg-emerald-400 rounded-full"></div>
-            <p>Libre</p>
-          </div>
-          <div className="flex gap-0.5 items-center">
-            <div className="w-3 h-3 bg-amber-200 rounded-full"></div>
-            <p>Moyen</p>
-          </div>
-          <div className="flex gap-0.5 items-center">
-            <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-            <p>Chargé</p>
-          </div>
-          <div className="flex gap-0.5 items-center">
-            <div className="w-3 h-3 bg-red-800 rounded-full"></div>
-            <p>Complet</p>
-          </div>
-        </div>
-      </div>
+      <Legend />
       {/* CRENEAUX */}
       <CalendarChoices />
     </div>

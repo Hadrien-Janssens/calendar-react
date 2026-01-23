@@ -1,7 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import ServiceCard from './ServiceCard'
+import type { ServiceType } from '@/type/serviceType'
 
-export default function ServiceList({ onClick }) {
+type ServiceListProps = {
+  onSelectedService: () => void
+}
+
+export default function ServiceList({ onSelectedService }: ServiceListProps) {
   const {
     data = [],
     isLoading,
@@ -17,6 +22,9 @@ export default function ServiceList({ onClick }) {
     },
   })
   console.log(data)
+  // TODO: il faut créer un composant pour le chargement et l'error
+  if (isLoading) return <div>Chargement...</div>
+  if (error) return <div>Erreur lors du chargement des événements</div>
   return (
     <>
       {/* HEADER */}
@@ -25,12 +33,15 @@ export default function ServiceList({ onClick }) {
       </div>
       {/* BODY */}
       <div className="space-y-5">
-        {data.map((service) => {
+        {data.map((service: ServiceType) => {
           return (
-            <ServiceCard onClick={onClick} key={service.id} service={service} />
+            <ServiceCard
+              onSelectedService={onSelectedService}
+              key={service.id}
+              service={service}
+            />
           )
-          // TODO: Il faut pas faire un type pour service ? pour avoir une autodompletion notament ?
-          // et reflechir au composant : pour que le client puisse choisir les ombres, les radius ... mais aussi pour que ça soit homogène ( ex: crénaux et cardService)
+          // TODO: et reflechir au composant : pour que le client puisse choisir les ombres, les radius ... mais aussi pour que ça soit homogène ( ex: crénaux et cardService)
         })}
       </div>
     </>
