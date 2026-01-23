@@ -31,7 +31,7 @@ export default function BookingModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="max-w-md mx-auto bg-white rounded-xl p-3 h-[90vh] overflow-scroll space-y-5"
+        className="max-w-md mx-auto bg-white rounded-xl p-3 h-[90vh] overflow-scroll space-y-5 flex flex-col"
       >
         {/* HEADER MODAL */}
         <div>
@@ -42,8 +42,10 @@ export default function BookingModal({
           />
         </div>
         {/* BODY MODAL */}
-        {step === 0 && <ServiceList onSelectedService={nextStep} />}
-        {step === 1 && <Calendar selectedService={selectedService} />}
+        <div className="grow">
+          {step === 0 && <ServiceList onSelectedService={nextStep} />}
+          {step === 1 && <Calendar selectedService={selectedService} />}
+        </div>
       </div>
     </div>,
     document.body,

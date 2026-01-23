@@ -3,6 +3,8 @@ import 'dayjs/locale/fr'
 import { useState } from 'react'
 
 // IMPORT COMPONENT
+import LoadingDataQuery from '../LoadingDataQuery'
+import ErreurDataQuery from '../ErreurDataQuery'
 import CalendarChoices from './CalendarChoices'
 import { useCalendarEvents } from './useCalendarEvent'
 import CalendarHeader from './CalendarHeader'
@@ -35,8 +37,8 @@ export default function Calendar({
   // console.log(data)
 
   // TODO: il faut créer un composant pour le chargement et l'error
-  if (isLoading) return <div>Chargement...</div>
-  if (error) return <div>Erreur lors du chargement des événements</div>
+  if (isLoading) return <LoadingDataQuery />
+  if (error) return <ErreurDataQuery />
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl p-5 h-[90vh] overflow-scroll">
       <CalendarHeader
