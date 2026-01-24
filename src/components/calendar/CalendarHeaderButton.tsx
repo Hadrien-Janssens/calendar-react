@@ -1,5 +1,7 @@
+import type { ReactElement } from 'react'
+
 type calendarHeaderButtonType = {
-  children: string
+  children: ReactElement
   onClick: () => void
 }
 export default function CalendarHeaderButton({
@@ -7,7 +9,7 @@ export default function CalendarHeaderButton({
   onClick,
 }: calendarHeaderButtonType) {
   return (
-    <button onClick={onClick} className="border rounded-sm py-0.5 px-2 text-xs">
+    <button onClick={onClick} className="border rounded-sm py-0 px-3 text-xs">
       {children}
     </button>
   )

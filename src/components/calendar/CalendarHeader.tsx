@@ -2,6 +2,7 @@
 import dayjs from 'dayjs'
 
 // COMPONENT
+import { MoveLeft, MoveRight } from 'lucide-react'
 import CalendarHeaderButton from './CalendarHeaderButton'
 import type { Dispatch, SetStateAction } from 'react'
 
@@ -26,7 +27,7 @@ export default function CalendarHeader({
     <>
       <div className="flex justify-between items-center">
         <CalendarHeaderButton onClick={prevMonth}>
-          précédent
+          <MoveLeft className="w-4 text-gray-500" />
         </CalendarHeaderButton>
         <h2 className="text-lg font-semibold mb-2 text-center">
           <select
@@ -44,7 +45,9 @@ export default function CalendarHeader({
 
           {currentDate.format('YYYY')}
         </h2>
-        <CalendarHeaderButton onClick={nextMonth}>suivant</CalendarHeaderButton>
+        <CalendarHeaderButton onClick={nextMonth}>
+          <MoveRight className="w-4 text-gray-500" />
+        </CalendarHeaderButton>
       </div>
     </>
   )

@@ -5,7 +5,6 @@ import { useState } from 'react'
 // IMPORT COMPONENT
 import LoadingDataQuery from '../LoadingDataQuery'
 import ErreurDataQuery from '../ErreurDataQuery'
-import CalendarChoices from './CalendarChoices'
 import { useCalendarEvents } from './useCalendarEvent'
 import CalendarHeader from './CalendarHeader'
 import CalendarTableHead from './CalendarTableHead'
@@ -36,11 +35,10 @@ export default function Calendar({
 
   // console.log(data)
 
-  // TODO: il faut créer un composant pour le chargement et l'error
   if (isLoading) return <LoadingDataQuery />
   if (error) return <ErreurDataQuery />
   return (
-    <div className="max-w-md mx-auto bg-white rounded-xl p-5 h-[90vh] overflow-scroll">
+    <div className="max-w-md mx-auto bg-white rounded-xl md:p-5 pt-0 md:pt-0 overflow-scroll">
       <CalendarHeader
         prevMonth={prevMonth}
         nextMonth={nextMonth}
@@ -56,7 +54,7 @@ export default function Calendar({
                 {calendarDays
                   .slice(weekIndex * 7, weekIndex * 7 + 7)
                   .map((day, i) => (
-                    <td key={i} className=" h-14 rounded-2xl ">
+                    <td key={i} className="h-10 md:h-12 rounded-2xl ">
                       <div className="flex justify-center items-center font-medium ">
                         <CalendarDay day={day} data={data} />
                       </div>
@@ -68,10 +66,8 @@ export default function Calendar({
         </tbody>
       </table>
 
-      {/* LEGEND  */}
+      {/* LEGEND FOR COLOR CODE  */}
       <Legend />
-      {/* CRENEAUX */}
-      <CalendarChoices selectedService={selectedService} />
     </div>
   )
 }

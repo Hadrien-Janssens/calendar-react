@@ -6,9 +6,13 @@ import type { ServiceType } from '@/type/serviceType'
 
 type ServiceListProps = {
   onSelectedService: (service: ServiceType) => void
+  selectedService: ServiceType | null
 }
 
-export default function ServiceList({ onSelectedService }: ServiceListProps) {
+export default function ServiceList({
+  onSelectedService,
+  selectedService,
+}: ServiceListProps) {
   const {
     data = [],
     isLoading,
@@ -30,18 +34,15 @@ export default function ServiceList({ onSelectedService }: ServiceListProps) {
   if (error) return <ErreurDataQuery />
   return (
     <>
-      {/* HEADER */}
-      <div className="flex justify-between">
-        <p className="text-lg font-bold">Services</p>
-      </div>
       {/* BODY */}
-      <div className="space-y-5">
+      <div className="space-y-5 p-2 px-3">
         {data.map((service: ServiceType) => {
           return (
             <ServiceCard
               onSelectedService={onSelectedService}
               key={service.id}
               service={service}
+              selectedService={selectedService}
             />
           )
           // TODO: et reflechir au composant : pour que le client puisse choisir les ombres, les radius ... mais aussi pour que ça soit homogène ( ex: crénaux et cardService)
