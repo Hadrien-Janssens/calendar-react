@@ -9,6 +9,7 @@ import type { Dispatch, SetStateAction } from 'react'
 type CalendarHeaderProps = {
   prevMonth: () => void
   nextMonth: () => void
+  setSelectedDay: Dispatch<SetStateAction<dayjs.Dayjs>>
   currentDate: dayjs.Dayjs
   setCurrentDate: Dispatch<SetStateAction<dayjs.Dayjs>>
 }
@@ -16,10 +17,12 @@ type CalendarHeaderProps = {
 export default function CalendarHeader({
   prevMonth,
   nextMonth,
+  setSelectedDay,
   currentDate,
   setCurrentDate,
 }: CalendarHeaderProps) {
   const followMonth = (index: number) => {
+    setSelectedDay(dayjs().month(index))
     setCurrentDate(dayjs().month(index))
   }
 

@@ -1,29 +1,46 @@
+import dayjs from 'dayjs'
 import CalendarTimeChoice from './CalendarTimeChoice'
-import type { ServiceType } from '@/type/serviceType'
+import { getTheSameDay } from './utils/calendarFunction'
+import type { Dayjs } from 'dayjs'
+import type { DaySlots } from './type'
 
 export default function CalendarChoices({
-  selectedService,
+  data,
+  selectedDay,
 }: {
-  selectedService: ServiceType | null
+  data: Array<DaySlots>
+  selectedDay: Dayjs
 }) {
-  // TODO: Fetch les horaires sur base de la configue du dashboard
-  // attention mon calendar a besoin de savoir combien de crénaux sont disponible pour afficher les bonnes couleurs. donc calendar doit plus fetch des events via /event et juste renvoyer un nombre d'events, ça sert a rien.
-  // il doit fetch les disponibilités à /time-slot, et pour ça il doit donner la durée de du service. de la, le back va calculer les slots disponible pour cette durée (et recuperer les events google pour ça) puis va juste renvoyer un nombre de slots et c'est ce nombre qui déterminera la couleur du jour ( vert = libre, jaune = moyen, rouge=complet)
+  const day = getTheSameDay(selectedDay, data)
 
-  console.log(selectedService)
+  // Early return
+  if (!day) {
+    return (
+      <div className="w-full flex justify-center items-center space-y-2 italic text-center ">
+        <p>Congé.</p>
+      </div>
+    )
+  }
+  if (day.availableSlots.length === 0) {
+    return (
+      <div className="w-full flex justify-center items-center space-y-2 italic text-center ">
+        <p>Plus de crénaux disponibles pour ce jour.</p>
+      </div>
+    )
+  }
+  // return availables slots
+  const slots = day.availableSlots
 
-  // ensuite donner les crénaux disponibles suivant le service
   return (
     <div className="space-y-2 ">
-      <CalendarTimeChoice>17h00 - 18h00</CalendarTimeChoice>
-      <CalendarTimeChoice>18h00 - 19h00</CalendarTimeChoice>
-      <CalendarTimeChoice>19h00 - 20h00</CalendarTimeChoice>
-
-      <CalendarTimeChoice>19h00 - 20h00</CalendarTimeChoice>
-      <CalendarTimeChoice>19h00 - 20h00</CalendarTimeChoice>
-      <CalendarTimeChoice>19h00 - 20h00</CalendarTimeChoice>
-      <CalendarTimeChoice>19h00 - 20h00</CalendarTimeChoice>
-      <CalendarTimeChoice>19h00 - 20h00</CalendarTimeChoice>
+      {slots.map((slot, index) => {
+        return (
+          <CalendarTimeChoice key={index}>
+            {dayjs(slot.start).format('HH:mm')} -
+            {dayjs(slot.end).format('HH:mm')}
+          </CalendarTimeChoice>
+        )
+      })}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { BadgeEuro, CalendarDays, HandPlatter } from 'lucide-react'
 
-export default function Stepper({ currentStep, totalStep }) {
+export default function Stepper() {
   return (
     <div className="w-full pb-3 border-b">
       {/* LIGNE + ICONES */}

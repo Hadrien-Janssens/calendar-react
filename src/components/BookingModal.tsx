@@ -1,10 +1,12 @@
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import { useState } from 'react'
+import dayjs from 'dayjs'
 import Calendar from './calendar/Calendar'
 import ServiceList from './services/ServiceList'
 import Stepper from './Stepper'
 import CalendarChoices from './calendar/CalendarChoices'
+import { useAvailableSlots } from './calendar/useAvailableSlots'
 import type { Dispatch, SetStateAction } from 'react'
 import type { ServiceType } from '@/type/serviceType'
 
@@ -20,6 +22,8 @@ export default function BookingModal({
   const [selectedService, setSelectedService] = useState<ServiceType | null>(
     null,
   )
+  const [selectedDay, setSelectedDay] = useState(dayjs())
+
   const selectService = (service: ServiceType) => {
     setSelectedService(service)
     if (!selectedService) {
@@ -33,6 +37,15 @@ export default function BookingModal({
     setStep((v) => v - 1)
   }
 
+  const {
+    data = [],
+    isLoading,
+    error,
+  } = useAvailableSlots(selectedDay, selectedService)
+  // console.log(data)
+
+  // if (isLoading) return <LoadingDataQuery />
+  // if (error) return <ErreurDataQuery />
   return createPortal(
     <div
       onClick={() => {
@@ -67,8 +80,16 @@ export default function BookingModal({
             )}
             {step === 1 && (
               <>
-                <Calendar selectedService={selectedService} />
-                <CalendarChoices selectedService={selectedService} />
+                <Calendar
+                  data={data}
+                  selectedDay={selectedDay}
+                  setSelectedDay={setSelectedDay}
+                />
+                <CalendarChoices
+                  selectedService={selectedService}
+                  data={data}
+                  selectedDay={selectedDay}
+                />
               </>
             )}
           </div>

@@ -76,3 +76,22 @@ export const isDayInMonth = (day: DayType): boolean => {
   }
   return false
 }
+
+export const getTheSameDay = (
+  day: dayjs.Dayjs,
+  data,
+):
+  | undefined
+  | { date: string; availableSlots: Array<{ start: string; end: string }> } => {
+  const target = new Date(day)
+
+  return data.find((d) => {
+    const date = new Date(d.date)
+
+    return (
+      date.getFullYear() === target.getFullYear() &&
+      date.getMonth() === target.getMonth() &&
+      date.getDate() === target.getDate()
+    )
+  })
+}

@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react'
+
 type CalendarTimeChoiceType = {
-  children: string
+  children: ReactNode
 }
 export default function CalendarTimeChoice({
   children,
