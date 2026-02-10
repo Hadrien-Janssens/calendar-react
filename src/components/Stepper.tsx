@@ -1,28 +1,36 @@
 import { BadgeEuro, CalendarDays, HandPlatter } from 'lucide-react'
+import Step from './Step'
 
-export default function Stepper() {
+export default function Stepper({
+  followStep,
+  step,
+}: {
+  followStep: (stepNumber: number) => void
+  step: number
+}) {
   return (
     <div className="w-full pb-3 border-b">
       {/* LIGNE + ICONES */}
       <div className="flex items-center gap-1 w-full px-7">
         {/* Step 1 */}
-        <div className="relative z-10 flex justify-center items-center w-10 h-10 rounded-full border-emerald-400  bg-emerald-400 p-1.5 ">
-          <HandPlatter className="text-emerald-50 " />
-        </div>
-
-        <div className="flex-1 h-0.5 bg-emerald-400" />
+        <Step followStep={followStep} step={0} currentStep={step}>
+          <HandPlatter />
+        </Step>
 
         {/* Step 2 */}
-        <div className="relative z-10 flex justify-center items-center w-10 h-10 rounded-full border-2 border-blue-400 bg-blue-50 p-1.5">
-          <CalendarDays className="text-blue-400" />
-        </div>
-
-        <div className="flex-1 h-0.5 bg-neutral-300" />
+        <Step followStep={followStep} step={1} currentStep={step}>
+          <CalendarDays />
+        </Step>
 
         {/* Step 3 */}
-        <div className="relative z-10 flex justify-center items-center w-10 h-10 rounded-full border bg-white p-1.5">
-          <BadgeEuro className="text-neutral-500" />
-        </div>
+        <Step
+          followStep={followStep}
+          step={2}
+          currentStep={step}
+          lastStep={true}
+        >
+          <BadgeEuro />
+        </Step>
       </div>
 
       {/* TEXTES */}

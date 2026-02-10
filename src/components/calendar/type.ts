@@ -1,4 +1,4 @@
-type Slot = { start: string; end: string }
+export type Slot = { start: string; end: string }
 
 export type DaySlots = {
   date: string

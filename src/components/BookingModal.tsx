@@ -9,6 +9,7 @@ import CalendarChoices from './calendar/CalendarChoices'
 import { useAvailableSlots } from './calendar/useAvailableSlots'
 import type { Dispatch, SetStateAction } from 'react'
 import type { ServiceType } from '@/type/serviceType'
+import type { Slot } from './calendar/type'
 
 type BookingModalType = {
   setshowBookingModal: Dispatch<SetStateAction<boolean>>
@@ -23,6 +24,7 @@ export default function BookingModal({
     null,
   )
   const [selectedDay, setSelectedDay] = useState(dayjs())
+  const [selectedSlot, setSelectedSlot] = useState<Slot>()
 
   const selectService = (service: ServiceType) => {
     setSelectedService(service)
@@ -30,11 +32,17 @@ export default function BookingModal({
       setActivateStep((v) => v + 1)
     }
   }
+
   const nextStep = () => {
     setStep((v) => v + 1)
   }
   const prevStep = () => {
     setStep((v) => v - 1)
+  }
+  const followStep = (stepNumber: number) => {
+    if (selectedService) {
+      setStep(stepNumber)
+    }
   }
 
   const {
@@ -64,7 +72,7 @@ export default function BookingModal({
               }}
             />
             <div className="pt-10">
-              <Stepper />
+              <Stepper followStep={followStep} step={step} />
             </div>{' '}
           </div>
           {/* BODY MODAL */}
@@ -85,7 +93,13 @@ export default function BookingModal({
                   isLoading={isLoading}
                   error={error}
                 />
-                <CalendarChoices data={data} selectedDay={selectedDay} />
+                <CalendarChoices
+                  data={data}
+                  selectedDay={selectedDay}
+                  selectedSlot={selectedSlot}
+                  setSelectedSlot={setSelectedSlot}
+                  setActivateStep={setActivateStep}
+                />
               </>
             )}
           </div>
@@ -98,17 +112,17 @@ export default function BookingModal({
           >
             {step > 0 && (
               <button
-                className="border rounded-xl py-2 w-30 cursor-pointer"
+                className="border rounded-xl py-2 w-30 cursor-pointer font-bold"
                 onClick={prevStep}
               >
                 Précécent
               </button>
             )}
             <button
-              disabled={ActivateStep - 1 !== step}
+              disabled={ActivateStep - 1 < step}
               className={
-                'border rounded-xl py-2 w-30 ' +
-                (ActivateStep - 1 === step
+                'border rounded-xl py-2 w-30 font-bold ' +
+                (ActivateStep - 1 >= step
                   ? 'border-blue-500 bg-blue-50 text-blue-500 hover:cursor-pointer'
                   : 'hover:cursor-not-allowed ')
               }

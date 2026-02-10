@@ -50,7 +50,11 @@ export default function CalendarDay({
 
   return (
     <div
-      onClick={() => setSelectedDay(day.day)}
+      onClick={() => {
+        if (!dayjs(day.day).isBefore(dayjs(), 'month')) {
+          setSelectedDay(day.day)
+        }
+      }}
       className={`relative w-8 h-8 md:w-10 md:h-10 rounded-full text-center flex justify-center items-center cursor-pointer hover:scale-110 duration-200  
         ${canBooking() ? getColorAvailabilityLevel(day, data) : 'text-neutral-400 '}
         ${dayjs(selectedDay).isSame(dayjs(day.day), 'day') ? ' border-3 border-neutral-400 bg-neutral-100' : ''}

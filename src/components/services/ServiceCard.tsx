@@ -19,7 +19,7 @@ export default function ServiceCard({
       className={
         'flex flex-col justify-between border rounded-2xl px-3 py-1 shadow-md hover:scale-105 hover:cursor-pointer duration-200 ' +
         (selectedService && selectedService.id === service.id
-          ? 'bg-emerald-500 text-emerald-50'
+          ? 'bg-emerald-50 border-emerald-500 border text-emerald-700 hover:cursor-pointer'
           : '')
       }
     >

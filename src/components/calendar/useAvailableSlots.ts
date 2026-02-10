@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchAvailablesSlots } from './services/calendar.service'
 import type { DaySlots } from './type'
-import type dayjs from 'dayjs'
 import type { ServiceType } from '@/type/serviceType'
+import type dayjs from 'dayjs'
 
 export function useAvailableSlots(
   day: dayjs.Dayjs,
