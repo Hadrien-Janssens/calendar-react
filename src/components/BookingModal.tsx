@@ -42,10 +42,7 @@ export default function BookingModal({
     isLoading,
     error,
   } = useAvailableSlots(selectedDay, selectedService)
-  // console.log(data)
 
-  // if (isLoading) return <LoadingDataQuery />
-  // if (error) return <ErreurDataQuery />
   return createPortal(
     <div
       onClick={() => {
@@ -71,6 +68,7 @@ export default function BookingModal({
             </div>{' '}
           </div>
           {/* BODY MODAL */}
+
           <div className="grow overflow-scroll">
             {step === 0 && (
               <ServiceList
@@ -84,15 +82,14 @@ export default function BookingModal({
                   data={data}
                   selectedDay={selectedDay}
                   setSelectedDay={setSelectedDay}
+                  isLoading={isLoading}
+                  error={error}
                 />
-                <CalendarChoices
-                  selectedService={selectedService}
-                  data={data}
-                  selectedDay={selectedDay}
-                />
+                <CalendarChoices data={data} selectedDay={selectedDay} />
               </>
             )}
           </div>
+
           {/* FOOTER MODAL  */}
           <div
             className={`w-full flex 

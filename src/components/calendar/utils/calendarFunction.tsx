@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import type { DayType } from '@/type/DayType'
 import type { GoogleEvent } from '@/type/googleEventType'
+import type { DaySlots } from '../type'
 
 export function getCalendarDays(month: dayjs.Dayjs) {
   const startOfMonth = month.startOf('month')
@@ -79,19 +80,19 @@ export const isDayInMonth = (day: DayType): boolean => {
 
 export const getTheSameDay = (
   day: dayjs.Dayjs,
-  data,
+  data: Array<DaySlots>,
 ):
   | undefined
   | { date: string; availableSlots: Array<{ start: string; end: string }> } => {
-  const target = new Date(day)
+  // const target = new Date(day)
 
-  return data.find((d) => {
-    const date = new Date(d.date)
+  // return data.find((d) => {
+  // const date = new Date(d.date)
 
-    return (
-      date.getFullYear() === target.getFullYear() &&
-      date.getMonth() === target.getMonth() &&
-      date.getDate() === target.getDate()
-    )
-  })
+  // return (
+  //   date.getFullYear() === target.getFullYear() &&
+  //   date.getMonth() === target.getMonth() &&
+  //   date.getDate() === target.getDate()
+  // )
+  return data.find((d) => dayjs(d.date).isSame(day, 'day'))
 }

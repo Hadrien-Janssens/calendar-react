@@ -1,8 +1,9 @@
 import 'dayjs/locale/fr'
 import dayjs from 'dayjs'
 
-import { useState } from 'react'
 // IMPORT COMPONENT
+import LoadingDataQuery from '../LoadingDataQuery'
+import ErreurDataQuery from '../ErreurDataQuery'
 import CalendarHeader from './CalendarHeader'
 import CalendarTableHead from './CalendarTableHead'
 import CalendarDay from './CalendarDay'
@@ -16,35 +17,30 @@ export default function Calendar({
   data,
   selectedDay,
   setSelectedDay,
+  isLoading,
+  error,
 }: {
+  data: any
   selectedDay: Dayjs
   setSelectedDay: Dispatch<SetStateAction<dayjs.Dayjs>>
-  data: any
+  isLoading: boolean
+  error: Error | null
 }) {
   dayjs.locale('fr')
-  const [currentDate, setCurrentDate] = useState(dayjs())
-  const calendarDays = getCalendarDays(currentDate)
+  const calendarDays = getCalendarDays(selectedDay)
 
-  const nextMonth = () => {
-    setCurrentDate((v) => v.add(1, 'month'))
-    setSelectedDay((v) => v.add(1, 'month'))
+  if (isLoading) {
+    return <LoadingDataQuery />
   }
-
-  const prevMonth = () => {
-    if (!dayjs(currentDate).subtract(1, 'month').isBefore(dayjs(), 'day')) {
-      setCurrentDate((v) => v.subtract(1, 'month'))
-      setSelectedDay((v) => v.subtract(1, 'month'))
-    }
+  if (error) {
+    return <ErreurDataQuery />
   }
 
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl md:p-5 pt-0 md:pt-0 overflow-scroll">
       <CalendarHeader
-        prevMonth={prevMonth}
-        nextMonth={nextMonth}
-        currentDate={currentDate}
+        selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
-        setCurrentDate={setCurrentDate}
       />
       <table className="border-collapse w-full">
         <CalendarTableHead />

@@ -17,7 +17,7 @@ export default function CalendarChoices({
   if (!day) {
     return (
       <div className="w-full flex justify-center items-center space-y-2 italic text-center ">
-        <p>Congé.</p>
+        <p>Impossible de prendre rendez-vous à cette date.</p>
       </div>
     )
   }

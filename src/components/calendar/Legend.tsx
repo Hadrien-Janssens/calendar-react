@@ -7,15 +7,15 @@ export default function Legend() {
           <p>Libre</p>
         </div>
         <div className="flex gap-0.5 items-center">
-          <div className="w-3 h-3 bg-amber-200 rounded-full"></div>
+          <div className="w-3 h-3 bg-amber-300 rounded-full"></div>
           <p>Moyen</p>
         </div>
         <div className="flex gap-0.5 items-center">
-          <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+          <div className="w-3 h-3 bg-orange-300 rounded-full"></div>
           <p>Chargé</p>
         </div>
         <div className="flex gap-0.5 items-center">
-          <div className="w-3 h-3 bg-red-800 rounded-full"></div>
+          <div className="w-3 h-3 bg-red-300 rounded-full"></div>
           <p>Complet</p>
         </div>
       </div>

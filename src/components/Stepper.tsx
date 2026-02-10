@@ -33,13 +33,13 @@ export default function Stepper() {
         </div>
 
         <div className="w-24">
-          <p className="text-sm font-semibold">Réserve</p>
+          <p className="text-sm font-semibold">Réservation</p>
           <p className="text-xs font-extralight">Choisis une disponibilité</p>
         </div>
 
         <div className="w-24">
           <p className="text-sm font-semibold">Paiement</p>
-          <p className="text-xs font-extralight">Payer en toute sécurité</p>
+          <p className="text-xs font-extralight">Paye en toute sécurité</p>
         </div>
       </div>
     </div>
