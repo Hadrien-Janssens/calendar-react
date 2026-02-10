@@ -1,26 +1,33 @@
 // LIB
 import dayjs from 'dayjs'
-
 // COMPONENT
 import { MoveLeft, MoveRight } from 'lucide-react'
 import CalendarHeaderButton from './CalendarHeaderButton'
+// TYPE
 import type { Dispatch, SetStateAction } from 'react'
 
 type CalendarHeaderProps = {
-  prevMonth: () => void
-  nextMonth: () => void
-  currentDate: dayjs.Dayjs
-  setCurrentDate: Dispatch<SetStateAction<dayjs.Dayjs>>
+  selectedDay: dayjs.Dayjs
+  setSelectedDay: Dispatch<SetStateAction<dayjs.Dayjs>>
 }
 
 export default function CalendarHeader({
-  prevMonth,
-  nextMonth,
-  currentDate,
-  setCurrentDate,
+  selectedDay,
+  setSelectedDay,
 }: CalendarHeaderProps) {
+  const nextMonth = () => {
+    setSelectedDay((v) => v.add(1, 'month'))
+  }
+
+  const prevMonth = () => {
+    if (!dayjs(selectedDay).subtract(1, 'month').isBefore(dayjs(), 'month')) {
+      setSelectedDay((v) => v.subtract(1, 'month'))
+    }
+  }
   const followMonth = (index: number) => {
-    setCurrentDate(dayjs().month(index))
+    if (!selectedDay.month(index).isBefore(dayjs(), 'month')) {
+      setSelectedDay(selectedDay.month(index))
+    }
   }
 
   return (
@@ -31,19 +38,19 @@ export default function CalendarHeader({
         </CalendarHeaderButton>
         <h2 className="text-lg font-semibold mb-2 text-center">
           <select
-            value={currentDate.month()}
+            value={selectedDay.month()}
             onChange={(e) => followMonth(parseInt(e.target.value))}
           >
             {Array.from({ length: 12 }).map((_, index) => {
               return (
                 <option key={index} value={index}>
-                  {currentDate.month(index).format('MMMM')}
+                  {selectedDay.month(index).format('MMMM')}
                 </option>
               )
             })}
           </select>
 
-          {currentDate.format('YYYY')}
+          {selectedDay.format('YYYY')}
         </h2>
         <CalendarHeaderButton onClick={nextMonth}>
           <MoveRight className="w-4 text-gray-500" />

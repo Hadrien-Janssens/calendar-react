@@ -1,49 +1,46 @@
-import dayjs from 'dayjs'
 import 'dayjs/locale/fr'
-import { useState } from 'react'
+import dayjs from 'dayjs'
 
 // IMPORT COMPONENT
 import LoadingDataQuery from '../LoadingDataQuery'
 import ErreurDataQuery from '../ErreurDataQuery'
-import { useCalendarEvents } from './useCalendarEvent'
 import CalendarHeader from './CalendarHeader'
 import CalendarTableHead from './CalendarTableHead'
 import CalendarDay from './CalendarDay'
 import Legend from './Legend'
 // OTHERS IMPORT
-import type { ServiceType } from '@/type/serviceType'
+import type { Dayjs } from 'dayjs'
+import type { Dispatch, SetStateAction } from 'react'
 import { getCalendarDays } from '@/components/calendar/utils/calendarFunction'
 
 export default function Calendar({
-  selectedService,
+  data,
+  selectedDay,
+  setSelectedDay,
+  isLoading,
+  error,
 }: {
-  selectedService: ServiceType | null
+  data: any
+  selectedDay: Dayjs
+  setSelectedDay: Dispatch<SetStateAction<dayjs.Dayjs>>
+  isLoading: boolean
+  error: Error | null
 }) {
   dayjs.locale('fr')
-  const [currentDate, setCurrentDate] = useState(dayjs())
+  const calendarDays = getCalendarDays(selectedDay)
 
-  const nextMonth = () => {
-    setCurrentDate((v) => v.add(1, 'month'))
+  if (isLoading) {
+    return <LoadingDataQuery />
   }
-  const prevMonth = () => {
-    setCurrentDate((v) => v.subtract(1, 'month'))
+  if (error) {
+    return <ErreurDataQuery />
   }
 
-  const calendarDays = getCalendarDays(currentDate)
-
-  const { data = [], isLoading, error } = useCalendarEvents()
-
-  // console.log(data)
-
-  if (isLoading) return <LoadingDataQuery />
-  if (error) return <ErreurDataQuery />
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl md:p-5 pt-0 md:pt-0 overflow-scroll">
       <CalendarHeader
-        prevMonth={prevMonth}
-        nextMonth={nextMonth}
-        currentDate={currentDate}
-        setCurrentDate={setCurrentDate}
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
       />
       <table className="border-collapse w-full">
         <CalendarTableHead />
@@ -56,7 +53,12 @@ export default function Calendar({
                   .map((day, i) => (
                     <td key={i} className="h-10 md:h-12 rounded-2xl ">
                       <div className="flex justify-center items-center font-medium ">
-                        <CalendarDay day={day} data={data} />
+                        <CalendarDay
+                          day={day}
+                          data={data}
+                          selectedDay={selectedDay}
+                          setSelectedDay={setSelectedDay}
+                        />
                       </div>
                     </td>
                   ))}
